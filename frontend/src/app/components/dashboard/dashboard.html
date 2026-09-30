@@ -1,0 +1,24 @@
+<div class="dashboard-container">
+  <nav class="sidebar">
+    <h2>🏥 Gestion Clinique</h2>
+    <ul>
+      <li><a routerLink="/cliniques" routerLinkActive="active">🏥 Cliniques</a></li>
+      <li><a routerLink="/medecins" routerLinkActive="active">👨‍⚕️ Médecins</a></li>
+      <li><a routerLink="/patients" routerLinkActive="active">🧑‍🤝‍🧑 Patients</a></li>
+      <li><a routerLink="/rendezvous" routerLinkActive="active">📅 Rendez-vous</a></li>
+      <li><a routerLink="/specialites" routerLinkActive="active">🔬 Spécialités</a></li>
+    </ul>
+    <button class="btn-logout" (click)="logout()">🚪 Déconnexion</button>
+  </nav>
+
+  <div class="main-content">
+    <h1>Bienvenue dans la Gestion Clinique 👋</h1>
+    <div class="cards">
+      <div class="card" routerLink="/cliniques">🏥 Cliniques</div>
+      <div class="card" routerLink="/medecins">👨‍⚕️ Médecins</div>
+      <div class="card" routerLink="/patients">🧑‍🤝‍🧑 Patients</div>
+      <div class="card" routerLink="/rendezvous">📅 Rendez-vous</div>
+      <div class="card" routerLink="/specialites">🔬 Spécialités</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="top-actions">
+    <h2>Gestion des Medecins</h2>
+    <button mat-stroked-button color="primary" routerLink="/dashboard">Retour à l'accueil</button>
+  </div>
+  <app-clinique-info></app-clinique-info>
+
+  <div class="form-section">
+    <mat-form-field appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="newMedecin.nom" placeholder="Ex: Ben Ali" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prenom</mat-label>
+      <input matInput [(ngModel)]="newMedecin.prenom" placeholder="Ex: Ahmed" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Choisir une specialite</mat-label>
+      <mat-select [(ngModel)]="newMedecin.specialite" [compareWith]="compareSpecialites">
+        <mat-option *ngFor="let spec of specialites" [value]="spec">
+          {{ spec.nom }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="!selectedClinique">
+      <mat-icon>{{ editMode ? 'save' : 'add' }}</mat-icon>
+      {{ editMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+
+    <button mat-button *ngIf="editMode" (click)="reset()">
+      <mat-icon>cancel</mat-icon>
+      Annuler
+    </button>
+  </div>
+
+  <p class="hint-message" *ngIf="!selectedClinique">
+    Choisis d'abord l'adresse de la clinique.
+  </p>
+
+  <table mat-table [dataSource]="medecins" class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let m; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let m">{{ m.nom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef>Prenom</th>
+      <td mat-cell *matCellDef="let m">{{ m.prenom }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="specialite">
+      <th mat-header-cell *matHeaderCellDef>Specialite</th>
+      <td mat-cell *matCellDef="let m">{{ m.specialite?.nom || 'Aucune' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let m">
+        <button mat-icon-button color="primary" (click)="edit(m)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteMedecin(m.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

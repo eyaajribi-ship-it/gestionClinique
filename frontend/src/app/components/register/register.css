@@ -1,0 +1,129 @@
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed, #9333ea);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25);
+
+    color: white;
+
+    animation: fadeIn 0.6s ease;
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: 0.3s ease;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+input:focus {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    margin-top: 10px;
+}
+
+button[type="submit"] {
+    background: white;
+    color: #6d28d9;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+}
+
+button[type="button"] {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: white;
+}
+
+button[type="button"]:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.success-message {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #d1fae5;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

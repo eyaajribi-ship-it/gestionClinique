@@ -1,0 +1,26 @@
+<section class="clinic-info" *ngIf="cliniques.length; else emptyClinic">
+  <mat-form-field appearance="outline">
+    <mat-label>Adresse de la clinique</mat-label>
+    <mat-select
+      [(ngModel)]="clinique"
+      [compareWith]="compareCliniques"
+      (selectionChange)="changeClinique($event.value)"
+    >
+      <mat-option *ngFor="let item of cliniques" [value]="item">
+        {{ item.nom }} - {{ item.adresse }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="selected" *ngIf="clinique">
+    <span class="label">Clinique choisie</span>
+    <strong>{{ clinique.nom }}</strong>
+    <span>{{ clinique.adresse }}</span>
+  </div>
+</section>
+
+<ng-template #emptyClinic>
+  <section class="clinic-info muted">
+    <span>Aucune clinique enregistree</span>
+  </section>
+</ng-template>

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="top-actions">
+    <h2>Gestion des Rendez-vous</h2>
+    <button mat-stroked-button color="primary" routerLink="/dashboard">Retour à l'accueil</button>
+  </div>
+  <app-clinique-info></app-clinique-info>
+
+  <div class="form-section" *ngIf="selectedClinique">
+    <form class="add-form" (ngSubmit)="addRendezvous()">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput type="date" [(ngModel)]="newRendezvous.date" name="date" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Heure</mat-label>
+          <input matInput type="time" [(ngModel)]="newRendezvous.heure" name="heure" required />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Patient - Nom</mat-label>
+          <input matInput [(ngModel)]="newRendezvous.patient.nom" name="patientNom" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Patient - Prénom</mat-label>
+          <input matInput [(ngModel)]="newRendezvous.patient.prenom" name="patientPrenom" required />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Médecin - Nom</mat-label>
+          <input matInput [(ngModel)]="newRendezvous.medecin.nom" name="medecinNom" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Médecin - Prénom</mat-label>
+          <input matInput [(ngModel)]="newRendezvous.medecin.prenom" name="medecinPrenom" required />
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit">Ajouter rendez-vous</button>
+    </form>
+  </div>
+
+  <p class="hint-message" *ngIf="!selectedClinique">
+    Choisir d'abord l'adresse de la clinique.
+  </p>
+
+  <table mat-table [dataSource]="filteredRendezvousList" class="mat-elevation-z8" *ngIf="selectedClinique && filteredRendezvousList.length">
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let r; let i = index"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let r"> {{ r.date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="heure">
+      <th mat-header-cell *matHeaderCellDef> Heure </th>
+      <td mat-cell *matCellDef="let r"> {{ r.heure }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="patient">
+      <th mat-header-cell *matHeaderCellDef> Patient </th>
+      <td mat-cell *matCellDef="let r"> 
+        {{ r.patient ? r.patient.nom + ' ' + r.patient.prenom : 'Aucun patient' }} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="medecin">
+      <th mat-header-cell *matHeaderCellDef> Médecin </th>
+      <td mat-cell *matCellDef="let r"> 
+        {{ r.medecin ? 'Dr. ' + r.medecin.nom + ' ' + r.medecin.prenom : 'Aucun médecin' }} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let r">
+        <button mat-icon-button color="primary" (click)="edit(r)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteRendezvous(r.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <ng-container *ngIf="selectedClinique && !filteredRendezvousList.length">
+    <p class="hint-message">Aucun rendez-vous pour cette clinique.</p>
+  </ng-container>
+</div>
